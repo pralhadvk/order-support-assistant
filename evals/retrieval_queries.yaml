@@ -1,0 +1,24 @@
+# Labelled queries for retrieval evaluation. `gold: null` means out of scope (nothing should pass threshold).
+# Caveat: written by the same person who wrote the chunk metadata, so this measures fit, not generalisation.
+# A real deployment would replace it with labelled queries sampled from support logs.
+
+- {group: trap, gold: DOC-2, query: "my money got deducted and the order failed, when will I get it back"}
+- {group: trap, gold: DOC-2, query: "I was charged but the order didn't go through, where is my refund?"}
+- {group: trap, gold: DOC-2, query: "amount debited but order not placed, refund status?"}
+- {group: trap, gold: DOC-2, query: "payment failed but money deducted when will I get refund"}
+- {group: trap, gold: DOC-2, query: "Money left my account but the app says the order failed. When is my refund coming?"}
+- {group: trap, gold: DOC-2, query: "bank debited me but no order was created"}
+- {group: refund, gold: DOC-1, query: "How long will my refund take for order ORD-7701?"}
+- {group: refund, gold: DOC-1, query: "I returned the shoes last week, when will I get my refund?"}
+- {group: refund, gold: DOC-1, query: "the warehouse received my return, how many days until I get the money?"}
+- {group: refund, gold: DOC-6, query: "I returned an item from my international order, why is the refund taking longer?"}
+- {group: dispute, gold: DOC-3, query: "how do I raise a dispute and how long does it take?"}
+- {group: dispute, gold: DOC-8, query: "my dispute has been open for 2 weeks with no resolution, who can I escalate to?"}
+- {group: dispute, gold: DOC-7, query: "I want to file a chargeback for my order"}
+- {group: other, gold: DOC-5, query: "What's the maximum amount a single order can be?"}
+- {group: other, gold: DOC-5, query: "is there a daily limit on how much I can spend?"}
+- {group: other, gold: DOC-4, query: "Can you reset my account password for me right now?"}
+- {group: other, gold: DOC-4, query: "I forgot my password"}
+- {group: out_of_scope, gold: null, query: "what's the weather like in Mumbai"}
+- {group: out_of_scope, gold: null, query: "can you recommend a good laptop"}
+- {group: out_of_scope, gold: null, query: "how do I invest in mutual funds"}

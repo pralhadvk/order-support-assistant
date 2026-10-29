@@ -1,0 +1,80 @@
+[
+  {
+    "order_id": "ORD-4521",
+    "customer_id": "CUST-001",
+    "status": "PAYMENT_FAILED",
+    "amount": 2500.00,
+    "timestamp": "2026-09-22T14:03:00Z",
+    "failure_reason": "GATEWAY_TIMEOUT",
+    "_note": "Payload from the brief. Auto-reversal window elapsed -> dispute eligible."
+  },
+  {
+    "order_id": "ORD-2210",
+    "customer_id": "CUST-001",
+    "status": "PAYMENT_FAILED",
+    "amount": 1200.00,
+    "timestamp": "2026-09-26T20:00:00Z",
+    "failure_reason": "BANK_DECLINED_AFTER_DEBIT",
+    "_note": "Failed 14h ago -> still inside 24-48h window, no action needed."
+  },
+  {
+    "order_id": "ORD-5000",
+    "customer_id": "CUST-001",
+    "status": "PAYMENT_FAILED",
+    "amount": 5000.00,
+    "timestamp": "2026-09-24T09:00:00Z",
+    "failure_reason": "GATEWAY_TIMEOUT",
+    "_note": "The 'Rs 5000 failed 3 days ago, I want a chargeback' scenario."
+  },
+  {
+    "order_id": "ORD-7701",
+    "customer_id": "CUST-001",
+    "status": "RETURN_RECEIVED",
+    "amount": 1899.00,
+    "timestamp": "2026-09-23T11:30:00Z",
+    "is_international": false,
+    "_note": "Returned item received at warehouse; refund still inside 5-7 business day window."
+  },
+  {
+    "order_id": "ORD-6100",
+    "customer_id": "CUST-001",
+    "status": "RETURN_RECEIVED",
+    "amount": 7400.00,
+    "timestamp": "2026-09-16T08:00:00Z",
+    "is_international": true,
+    "_note": "Past the domestic 7-day window but inside the international +3 day extension (DOC-6)."
+  },
+  {
+    "order_id": "ORD-3300",
+    "customer_id": "CUST-001",
+    "status": "DELIVERED",
+    "amount": 3499.00,
+    "timestamp": "2026-09-20T16:45:00Z",
+    "_note": "Eligible for initiate_return."
+  },
+  {
+    "order_id": "ORD-8800",
+    "customer_id": "CUST-001",
+    "status": "DELIVERED",
+    "amount": 45000.00,
+    "timestamp": "2026-09-21T13:15:00Z",
+    "_note": "Above the high-value threshold -> return requires human approval."
+  },
+  {
+    "order_id": "ORD-9999",
+    "customer_id": "CUST-002",
+    "status": "DELIVERED",
+    "amount": 15999.00,
+    "timestamp": "2026-09-21T10:00:00Z",
+    "_note": "Belongs to another customer -> must look like 'not found' to CUST-001."
+  },
+  {
+    "order_id": "ORD-1313",
+    "customer_id": "CUST-001",
+    "status": "DELIVERED",
+    "amount": 999.00,
+    "timestamp": "2026-09-19T12:00:00Z",
+    "_simulate_error": "UPSTREAM_TIMEOUT",
+    "_note": "Every call times out -> exercises tool-failure handling."
+  }
+]

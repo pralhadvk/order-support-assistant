@@ -1,0 +1,149 @@
+[
+  {
+    "id": "DOC-1",
+    "title": "Refund Timeline",
+    "content": "Refunds for returned items are processed within 5-7 business days after the item is received at the warehouse. If the amount is not credited within this window, the customer should raise a dispute.",
+    "metadata": {
+      "topic": "refund_timeline",
+      "applies_to_status": [
+        "DELIVERED",
+        "RETURN_RECEIVED"
+      ],
+      "window": {
+        "min": 5,
+        "max": 7,
+        "unit": "business_days",
+        "starts_at": "item received at warehouse"
+      },
+      "trigger": "customer returned an item and is waiting for the refund",
+      "not_for": "money deducted on a failed or not-placed order (see DOC-2)",
+      "related": [
+        "DOC-3",
+        "DOC-6"
+      ]
+    }
+  },
+  {
+    "id": "DOC-2",
+    "title": "Failed Payment - Amount Deducted",
+    "content": "If an amount is deducted during checkout but the order shows as failed/not placed, the amount is auto-reversed within 24-48 hours under the payment gateway's standard TAT. No customer action is needed before 48 hours.",
+    "metadata": {
+      "topic": "payment_failure",
+      "applies_to_status": [
+        "PAYMENT_FAILED"
+      ],
+      "window": {
+        "min": 24,
+        "max": 48,
+        "unit": "hours",
+        "starts_at": "failed payment attempt"
+      },
+      "trigger": "money was debited but the order failed or was never placed",
+      "not_for": "refunds for returned items (see DOC-1)",
+      "related": [
+        "DOC-3",
+        "DOC-7"
+      ]
+    }
+  },
+  {
+    "id": "DOC-3",
+    "title": "Dispute Resolution Process",
+    "content": "A dispute can be raised via the app or customer care. Disputes are resolved within 7-10 working days as per the company's dispute resolution policy.",
+    "metadata": {
+      "topic": "dispute_process",
+      "applies_to_status": [],
+      "window": {
+        "min": 7,
+        "max": 10,
+        "unit": "business_days",
+        "starts_at": "dispute raised"
+      },
+      "trigger": "a refund or reversal has not arrived within its stated window",
+      "not_for": "card-issuer chargebacks (see DOC-7)",
+      "related": [
+        "DOC-7",
+        "DOC-8"
+      ]
+    }
+  },
+  {
+    "id": "DOC-4",
+    "title": "Account Password Reset",
+    "content": "Account passwords can be reset via the app using registered email or phone-based OTP. Support cannot reset a password directly for security reasons.",
+    "metadata": {
+      "topic": "account_security",
+      "applies_to_status": [],
+      "window": null,
+      "trigger": "customer cannot log in or wants a password changed",
+      "not_for": "order or payment issues",
+      "related": []
+    }
+  },
+  {
+    "id": "DOC-5",
+    "title": "Order Value Limits",
+    "content": "Default single-order limit is Rs 1,00,000, with a daily cap of Rs 1,00,000 across orders, unless the customer has an enhanced limit enabled on their account.",
+    "metadata": {
+      "topic": "order_limits",
+      "applies_to_status": [],
+      "window": null,
+      "trigger": "maximum order amount or daily spending cap",
+      "not_for": "refund or payment timelines",
+      "related": []
+    }
+  },
+  {
+    "id": "DOC-6",
+    "title": "International Shipping Returns",
+    "content": "International orders (where supported) can take 2-3 additional business days beyond domestic return timelines due to cross-border logistics.",
+    "metadata": {
+      "topic": "international_returns",
+      "applies_to_status": [
+        "DELIVERED",
+        "RETURN_RECEIVED"
+      ],
+      "window": {
+        "min": 2,
+        "max": 3,
+        "unit": "business_days",
+        "starts_at": "added to the domestic refund window"
+      },
+      "trigger": "refund or return timeline for an international order",
+      "not_for": "domestic orders",
+      "related": [
+        "DOC-1"
+      ]
+    }
+  },
+  {
+    "id": "DOC-7",
+    "title": "Chargeback vs Return Dispute",
+    "content": "A chargeback applies to direct card-issuer disputes; orders placed through the platform use the platform's own dispute mechanism, not chargebacks. Support should not use the term 'chargeback' for platform order issues.",
+    "metadata": {
+      "topic": "dispute_terminology",
+      "applies_to_status": [],
+      "window": null,
+      "trigger": "customer asks for a chargeback on a platform order",
+      "not_for": "explaining dispute timelines (see DOC-3)",
+      "related": [
+        "DOC-3"
+      ]
+    }
+  },
+  {
+    "id": "DOC-8",
+    "title": "Escalation Matrix",
+    "content": "If a dispute is not resolved within the stated window, it can be escalated to the platform's grievance officer after the standard internal resolution process has been exhausted.",
+    "metadata": {
+      "topic": "escalation",
+      "applies_to_status": [],
+      "window": null,
+      "trigger": "an existing dispute is past its resolution window",
+      "not_for": "first-time refund or payment questions",
+      "related": [
+        "DOC-3"
+      ]
+    }
+  }
+]

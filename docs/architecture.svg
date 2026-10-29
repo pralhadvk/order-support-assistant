@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" width="900" height="540" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .box { stroke-width: 1.5; rx: 8; }
+      .llm { fill: #eef2ff; stroke: #6366f1; }
+      .code { fill: #f0fdf4; stroke: #16a34a; }
+      .rag { fill: #eff6ff; stroke: #2563eb; }
+      .ext { fill: #fff7ed; stroke: #ea580c; }
+      .io { fill: #f8fafc; stroke: #64748b; }
+      .title { font-size: 13px; font-weight: 600; fill: #0f172a; }
+      .body { font-size: 11px; fill: #334155; }
+      .label { font-size: 10px; fill: #475569; font-style: italic; }
+      .edge { stroke: #475569; stroke-width: 1.4; fill: none; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 5 4; }
+    </style>
+  </defs>
+  <rect width="900" height="540" fill="#ffffff"/>
+
+  <!-- Row 1 -->
+  <rect class="box io" x="20" y="20" width="170" height="56"/>
+  <text class="title" x="105" y="44" text-anchor="middle">Customer message</text>
+  <text class="body" x="105" y="62" text-anchor="middle">chat / email</text>
+
+  <rect class="box code" x="230" y="14" width="330" height="70"/>
+  <text class="title" x="395" y="34" text-anchor="middle">Guardrails (before the LLM)</text>
+  <text class="body" x="395" y="52" text-anchor="middle">PII redaction · injection &amp; scope flags</text>
+  <text class="body" x="395" y="68" text-anchor="middle">tag-escaped delimiting · human request → handoff</text>
+
+  <!-- Row 2 -->
+  <rect class="box llm" x="230" y="140" width="330" height="70"/>
+  <text class="title" x="395" y="160" text-anchor="middle">Orchestrator: LLM agent loop</text>
+  <text class="body" x="395" y="178" text-anchor="middle">tool choice = routing (RAG, order data, or both)</text>
+  <text class="body" x="395" y="194" text-anchor="middle">DeepSeek V4.1 Flash via OpenRouter</text>
+
+  <rect class="box code" x="610" y="140" width="270" height="70"/>
+  <text class="title" x="745" y="160" text-anchor="middle">Grounding validator</text>
+  <text class="body" x="745" y="178" text-anchor="middle">cited docs retrieved? timelines traceable?</text>
+  <text class="body" x="745" y="194" text-anchor="middle">1 rewrite, then escalate</text>
+
+  <!-- Row 3 -->
+  <rect class="box code" x="130" y="262" width="430" height="80"/>
+  <text class="title" x="345" y="282" text-anchor="middle">Tool executor: deterministic policy gates</text>
+  <text class="body" x="345" y="299" text-anchor="middle">order ID must be typed by customer · owner from session</text>
+  <text class="body" x="345" y="314" text-anchor="middle">status check → eligibility dry-run → confirm in next turn</text>
+  <text class="body" x="345" y="329" text-anchor="middle">high-value → human · injection lock · retry + circuit breaker</text>
+
+  <rect class="box io" x="610" y="262" width="270" height="60"/>
+  <text class="title" x="745" y="287" text-anchor="middle">Final response</text>
+  <text class="body" x="745" y="305" text-anchor="middle">[DOC-n] / [ORDER] citations</text>
+
+  <!-- Row 4 -->
+  <rect class="box rag" x="20" y="400" width="300" height="120"/>
+  <text class="title" x="170" y="421" text-anchor="middle">RAG path (search_policy)</text>
+  <text class="body" x="170" y="440" text-anchor="middle">BM25 + bi-encoder (bge-small) → RRF top-8</text>
+  <text class="body" x="170" y="456" text-anchor="middle">cross-encoder rerank (bge-reranker-base)</text>
+  <text class="body" x="170" y="472" text-anchor="middle">over policy text + applicability metadata</text>
+  <text class="body" x="170" y="488" text-anchor="middle">order-status filter + relevance threshold</text>
+  <text class="body" x="170" y="504" text-anchor="middle">→ top-3 chunks</text>
+
+  <rect class="box ext" x="340" y="400" width="200" height="120"/>
+  <text class="title" x="440" y="421" text-anchor="middle">Mock Commerce API</text>
+  <text class="body" x="440" y="440" text-anchor="middle">check_order_status</text>
+  <text class="body" x="440" y="456" text-anchor="middle">initiate_return</text>
+  <text class="body" x="440" y="472" text-anchor="middle">raise_dispute</text>
+  <text class="body" x="440" y="494" text-anchor="middle">customer_id from session,</text>
+  <text class="body" x="440" y="508" text-anchor="middle">never from the model</text>
+
+  <rect class="box ext" x="560" y="400" width="150" height="120"/>
+  <text class="title" x="635" y="421" text-anchor="middle">Human agent queue</text>
+  <text class="body" x="635" y="440" text-anchor="middle">escalate_to_human</text>
+  <text class="body" x="635" y="456" text-anchor="middle">ticket ID returned</text>
+  <text class="body" x="635" y="472" text-anchor="middle">to the customer</text>
+
+  <rect class="box io" x="730" y="400" width="150" height="120"/>
+  <text class="title" x="805" y="421" text-anchor="middle">Audit log</text>
+  <text class="body" x="805" y="440" text-anchor="middle">JSONL, one per turn</text>
+  <text class="body" x="805" y="456" text-anchor="middle">redacted text, tool calls,</text>
+  <text class="body" x="805" y="472" text-anchor="middle">gate decisions, scores,</text>
+  <text class="body" x="805" y="488" text-anchor="middle">latency, cost, model</text>
+
+  <!-- Edges -->
+  <path class="edge" d="M190,48 H228"/>
+  <path class="edge" d="M395,84 V138"/>
+  <text class="label" x="402" y="116">redacted, wrapped</text>
+  <path class="edge" d="M360,210 V260"/>
+  <text class="label" x="300" y="240">tool calls</text>
+  <path class="edge" d="M430,262 V212"/>
+  <text class="label" x="437" y="240">results / gate errors</text>
+  <path class="edge" d="M560,175 H608"/>
+  <text class="label" x="566" y="168">draft</text>
+  <path class="edge" d="M745,210 V260"/>
+  <path class="edge" d="M805,322 V398"/>
+  <text class="label" x="812" y="364">every turn</text>
+  <path class="edge" d="M230,342 L172,398"/>
+  <path class="edge" d="M440,342 V398"/>
+  <path class="edge" d="M530,342 L612,398"/>
+  <path class="edge dashed" d="M560,40 H590 V398"/>
+  <text class="label" x="596" y="104">explicit human</text>
+  <text class="label" x="596" y="116">request (no LLM)</text>
+
+  <!-- Legend -->
+  <rect class="box llm" x="20" y="120" width="14" height="14"/>
+  <text class="body" x="40" y="131">LLM decides</text>
+  <rect class="box code" x="20" y="142" width="14" height="14"/>
+  <text class="body" x="40" y="153">code enforces</text>
+  <rect class="box rag" x="20" y="164" width="14" height="14"/>
+  <text class="body" x="40" y="175">retrieval models</text>
+  <rect class="box ext" x="20" y="186" width="14" height="14"/>
+  <text class="body" x="40" y="197">external systems</text>
+</svg>
